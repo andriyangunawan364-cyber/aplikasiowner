@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111827">
+    <title>OwnerHub - Rental PS & Mini Cinema</title>
+    <link rel="stylesheet" href="aplikasiowner.css">
+</head>
+
+<body>
+
+<div id="toastContainer"></div>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">🎮</div>
+            <div>
+                <strong>OwnerHub</strong>
+                <small>Rental PS & Cinema</small>
+            </div>
+        </div>
+
+        <nav class="menu">
+
+            <button class="menu-item active" data-page="dashboard">
+                <span>📊</span> Dashboard
+            </button>
+
+            <button class="menu-item" data-page="finance">
+                <span>💰</span> Keuangan
+            </button>
+
+            <button class="menu-item" data-page="employees">
+                <span>👥</span> Karyawan
+            </button>
+
+            <button class="menu-item" data-page="inventory">
+                <span>🎮</span> Alat & Inventaris
+            </button>
+
+            <button class="menu-item" data-page="maintenance">
+                <span>🔧</span> Perbaikan
+            </button>
+
+            <button class="menu-item" data-page="booking">
+                <span>📅</span> Booking
+            </button>
+
+            <button class="menu-item" data-page="food">
+                <span>🍔</span> Makanan
+            </button>
+
+            <button class="menu-item" data-page="analytics">
+                <span>📈</span> Analitik
+            </button>
+
+            <button class="menu-item" data-page="tools">
+                <span>🧰</span> Aplikasi
+            </button>
+
+            <button class="menu-item" data-page="settings">
+                <span>⚙️</span> Pengaturan
+            </button>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="business-status">
+                <span class="status-dot"></span>
+                Sistem Aktif
+            </div>
+
+            <button id="exportDataBtn" class="sidebar-action">
+                📥 Export Data
+            </button>
+
+            <button id="resetDataBtn" class="sidebar-action danger">
+                ♻️ Reset Data
+            </button>
+        </div>
+
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <button id="mobileMenuBtn" class="mobile-menu">☰</button>
+
+            <div>
+                <h1 id="pageTitle">Dashboard Owner</h1>
+                <p id="pageSubtitle">Pantau usaha rental PS, bioskop mini dan makanan.</p>
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="clock-box">
+                    <strong id="liveClock">00:00:00</strong>
+                    <span id="liveDate">Tanggal</span>
+                </div>
+
+                <button class="avatar">👤</button>
+
+            </div>
+
+        </header>
+
+        <!-- DASHBOARD -->
+        <section class="page active" id="dashboard">
+
+            <div class="welcome-card">
+
+                <div>
+                    <span class="eyebrow">OWNER CONTROL CENTER</span>
+                    <h2>Selamat datang di OwnerHub 👋</h2>
+                    <p>
+                        Kelola keuangan, karyawan, booking, alat,
+                        makanan dan operasional usaha dari satu tempat.
+                    </p>
+                </div>
+
+                <div class="welcome-icon">🎮</div>
+
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon green">💰</div>
+                    <div>
+                        <span>Omzet Hari Ini</span>
+                        <strong id="todayIncome">Rp0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">📉</div>
+                    <div>
+                        <span>Pengeluaran Hari Ini</span>
+                        <strong id="todayExpense">Rp0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+                    <div>
+                        <span>Pelanggan Hari Ini</span>
+                        <strong id="todayCustomers">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">🎮</div>
+                    <div>
+                        <span>Booking Hari Ini</span>
+                        <strong id="todayBookings">0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="grid-2">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Target Omzet</h3>
+                            <small>Progress bulan berjalan</small>
+                        </div>
+                        <strong id="targetPercent">0%</strong>
+                    </div>
+
+                    <div class="progress">
+                        <div id="targetProgress"></div>
+                    </div>
+
+                    <div class="target-info">
+                        <span id="targetCurrent">Rp0</span>
+                        <span id="targetValue">Target Rp0</span>
+                    </div>
+
+                </div>
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <h3>Status Operasional</h3>
+                            <small>Kondisi fasilitas</small>
+                        </div>
+                    </div>
+
+                    <div class="operation-summary">
+
+                        <div>
+                            <strong id="goodEquipment">0</strong>
+                            <span>Baik</span>
+                        </div>
+
+                        <div>
+                            <strong id="repairEquipment">0</strong>
+                            <span>Perbaikan</span>
+                        </div>
+
+                        <div>
+                            <strong id="brokenEquipment">0</strong>
+                            <span>Rusak</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="grid-2">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Jam Ramai</h3>
+                            <small>Berdasarkan data booking</small>
+                        </div>
+                    </div>
+
+                    <div id="busyHours" class="hour-list"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div>
+                            <h3>Aktivitas Terbaru</h3>
+                            <small>Transaksi terbaru</small>
+                        </div>
+                    </div>
+
+                    <div id="recentActivity"></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- KEUANGAN -->
+        <section class="page" id="finance">
+
+            <div class="section-heading">
+                <div>
+                    <span class="eyebrow">FINANCIAL CONTROL</span>
+                    <h2>Keuangan Usaha</h2>
+                    <p>Kelola pemasukan, pengeluaran, biaya operasional dan laba.</p>
+                </div>
+
+                <button class="primary-btn" id="addTransactionBtn">
+                    + Tambah Transaksi
+                </button>
+            </div>
+
+            <div class="filter-bar">
+
+                <select id="financePeriod">
+                    <option value="day">Hari Ini</option>
+                    <option value="month">Bulan Ini</option>
+                    <option value="year">Tahun Ini</option>
+                    <option value="all">Semua</option>
+                </select>
+
+                <select id="financeType">
+                    <option value="all">Semua Transaksi</option>
+                    <option value="income">Pemasukan</option>
+                    <option value="expense">Pengeluaran</option>
+                </select>
+
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon green">⬆️</div>
+                    <div>
+                        <span>Total Pemasukan</span>
+                        <strong id="financeIncome">Rp0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">⬇️</div>
+                    <div>
+                        <span>Total Pengeluaran</span>
+                        <strong id="financeExpense">Rp0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">💎</div>
+                    <div>
+                        <span>Laba Bersih</span>
+                        <strong id="financeProfit">Rp0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <h3>Daftar Transaksi</h3>
+                        <small>Catatan pemasukan dan pengeluaran</small>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Jenis</th>
+                                <th>Kategori</th>
+                                <th>Keterangan</th>
+                                <th>Sumber</th>
+                                <th>Nominal</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="transactionTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- KARYAWAN -->
+        <section class="page" id="employees">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">TEAM MANAGEMENT</span>
+                    <h2>Karyawan</h2>
+                    <p>Kelola karyawan, kehadiran, shift dan gaji.</p>
+                </div>
+
+                <button class="primary-btn" id="addEmployeeBtn">
+                    + Tambah Karyawan
+                </button>
+
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">👥</div>
+                    <div>
+                        <span>Total Karyawan</span>
+                        <strong id="employeeTotal">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✅</div>
+                    <div>
+                        <span>Hadir Hari Ini</span>
+                        <strong id="employeePresent">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon red">❌</div>
+                    <div>
+                        <span>Tidak Hadir</span>
+                        <strong id="employeeAbsent">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">💵</div>
+                    <div>
+                        <span>Total Gaji / Bulan</span>
+                        <strong id="totalSalary">Rp0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Jabatan</th>
+                                <th>Shift</th>
+                                <th>Gaji / Bulan</th>
+                                <th>Kehadiran</th>
+                                <th>Tugas</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="employeeTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- INVENTARIS -->
+        <section class="page" id="inventory">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">ASSET MANAGEMENT</span>
+                    <h2>Alat & Inventaris</h2>
+                    <p>Pantau semua peralatan rental PS, bioskop dan makanan.</p>
+                </div>
+
+                <button class="primary-btn" id="addEquipmentBtn">
+                    + Tambah Alat
+                </button>
+
+            </div>
+
+            <div class="inventory-grid" id="inventoryGrid"></div>
+
+        </section>
+
+
+        <!-- PERBAIKAN -->
+        <section class="page" id="maintenance">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">MAINTENANCE CENTER</span>
+                    <h2>Perbaikan & Maintenance</h2>
+                    <p>Catat kerusakan dan biaya perbaikan.</p>
+                </div>
+
+                <button class="primary-btn" id="addMaintenanceBtn">
+                    + Tambah Perbaikan
+                </button>
+
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon red">🔧</div>
+                    <div>
+                        <span>Belum Selesai</span>
+                        <strong id="openMaintenance">0</strong>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">💸</div>
+                    <div>
+                        <span>Biaya Perbaikan</span>
+                        <strong id="maintenanceCost">Rp0</strong>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Alat</th>
+                                <th>Masalah</th>
+                                <th>Teknisi</th>
+                                <th>Biaya</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="maintenanceTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- BOOKING -->
+        <section class="page" id="booking">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">RESERVATION</span>
+                    <h2>Booking PS & Bioskop Mini</h2>
+                    <p>Lihat tempat yang sudah dibooking dan yang masih tersedia.</p>
+                </div>
+
+                <button class="primary-btn" id="addBookingBtn">
+                    + Tambah Booking
+                </button>
+
+            </div>
+
+            <div class="room-status-grid" id="roomStatusGrid"></div>
+
+            <div class="panel">
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Pelanggan</th>
+                                <th>Tempat</th>
+                                <th>Jam</th>
+                                <th>Durasi</th>
+                                <th>Total</th>
+                                <th>Pembayaran</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="bookingTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- MAKANAN -->
+        <section class="page" id="food">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">FOOD & BEVERAGE</span>
+                    <h2>Makanan & Minuman</h2>
+                    <p>Kelola menu dan pesanan pelanggan.</p>
+                </div>
+
+                <button class="primary-btn" id="addFoodBtn">
+                    + Tambah Pesanan
+                </button>
+
+            </div>
+
+            <div class="food-grid" id="foodMenuGrid"></div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <h3>Pesanan Terbaru</h3>
+                </div>
+
+                <div class="table-wrapper">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Pelanggan</th>
+                                <th>Lokasi</th>
+                                <th>Menu</th>
+                                <th>Qty</th>
+                                <th>Total</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="foodOrderTable"></tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ANALITIK -->
+        <section class="page" id="analytics">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">BUSINESS ANALYTICS</span>
+                    <h2>Analitik Usaha</h2>
+                    <p>Gunakan data untuk memahami perkembangan usaha.</p>
+                </div>
+
+            </div>
+
+            <div class="analytics-grid">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Omzet 7 Hari Terakhir</h3>
+                    </div>
+                    <div id="revenueChart" class="bar-chart"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Jam Ramai & Jam Sepi</h3>
+                    </div>
+
+                    <div class="peak-card">
+                        <span>🔥 Jam Ramai</span>
+                        <strong id="peakHour">-</strong>
+                    </div>
+
+                    <div class="peak-card">
+                        <span>🌙 Jam Sepi</span>
+                        <strong id="quietHour">-</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="grid-2">
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Game Paling Banyak Dimainkan</h3>
+                    </div>
+                    <div id="popularGames"></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <h3>Ringkasan Usaha</h3>
+                    </div>
+
+                    <div class="summary-list">
+
+                        <div>
+                            <span>Total Pelanggan</span>
+                            <strong id="analyticsCustomers">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Total Booking</span>
+                            <strong id="analyticsBookings">0</strong>
+                        </div>
+
+                        <div>
+                            <span>Total Omzet</span>
+                            <strong id="analyticsRevenue">Rp0</strong>
+                        </div>
+
+                        <div>
+                            <span>Total Pengeluaran</span>
+                            <strong id="analyticsExpense">Rp0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TOOLS -->
+        <section class="page" id="tools">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">UTILITY CENTER</span>
+                    <h2>Aplikasi Tambahan</h2>
+                    <p>Tools yang membantu kegiatan sehari-hari.</p>
+                </div>
+
+            </div>
+
+            <div class="tools-grid">
+
+                <!-- CLOCK -->
+                <div class="tool-card">
+
+                    <div class="tool-icon">🕐</div>
+
+                    <h3>Jam & Kalender</h3>
+
+                    <div class="big-clock" id="toolClock">00:00:00</div>
+
+                    <p id="toolDate">-</p>
+
+                </div>
+
+
+                <!-- CALCULATOR -->
+                <div class="tool-card calculator">
+
+                    <div class="tool-icon">🧮</div>
+
+                    <h3>Kalkulator</h3>
+
+                    <input id="calcDisplay" readonly value="0">
+
+                    <div class="calc-buttons">
+
+                        <button data-calc="C">C</button>
+                        <button data-calc="DEL">⌫</button>
+                        <button data-calc="%">%</button>
+                        <button data-calc="/">÷</button>
+
+                        <button data-calc="7">7</button>
+                        <button data-calc="8">8</button>
+                        <button data-calc="9">9</button>
+                        <button data-calc="*">×</button>
+
+                        <button data-calc="4">4</button>
+                        <button data-calc="5">5</button>
+                        <button data-calc="6">6</button>
+                        <button data-calc="-">−</button>
+
+                        <button data-calc="1">1</button>
+                        <button data-calc="2">2</button>
+                        <button data-calc="3">3</button>
+                        <button data-calc="+">+</button>
+
+                        <button data-calc="0" class="wide">0</button>
+                        <button data-calc=".">.</button>
+                        <button data-calc="=">=</button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- WEATHER -->
+                <div class="tool-card">
+
+                    <div class="tool-icon">🌤️</div>
+
+                    <h3>Cuaca</h3>
+
+                    <div class="form-row">
+
+                        <input id="weatherCity" placeholder="Contoh: Jakarta">
+
+                        <button class="secondary-btn" id="weatherBtn">
+                            Cek
+                        </button>
+
+                    </div>
+
+                    <div id="weatherResult" class="tool-result">
+                        Masukkan kota untuk melihat informasi cuaca.
+                    </div>
+
+                    <small>
+                        Membutuhkan koneksi internet dan API cuaca.
+                    </small>
+
+                </div>
+
+
+                <!-- QIBLA -->
+                <div class="tool-card">
+
+                    <div class="tool-icon">🧭</div>
+
+                    <h3>Arah Kiblat</h3>
+
+                    <p>Arah perkiraan kiblat dari lokasi Anda.</p>
+
+                    <div class="compass">
+
+                        <div class="compass-ring">
+                            <span>N</span>
+                            <span>E</span>
+                            <span>S</span>
+                            <span>W</span>
+
+                            <div id="qiblaNeedle">▲</div>
+                        </div>
+
+                    </div>
+
+                    <strong id="qiblaDegree">Belum dihitung</strong>
+
+                    <button class="secondary-btn full" id="qiblaBtn">
+                        📍 Hitung Arah Kiblat
+                    </button>
+
+                </div>
+
+
+                <!-- QR -->
+                <div class="tool-card qr-tool">
+
+                    <div class="tool-icon">📱</div>
+
+                    <h3>Scan QR Code</h3>
+
+                    <video id="qrVideo" autoplay playsinline></video>
+
+                    <canvas id="qrCanvas" hidden></canvas>
+
+                    <div id="qrResult" class="tool-result">
+                        Kamera belum diaktifkan.
+                    </div>
+
+                    <button class="secondary-btn full" id="startQR">
+                        📷 Mulai Scan QR
+                    </button>
+
+                    <button class="danger-btn full" id="stopQR">
+                        ⏹ Stop Kamera
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SETTINGS -->
+        <section class="page" id="settings">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="eyebrow">SYSTEM SETTINGS</span>
+                    <h2>Pengaturan Usaha</h2>
+                    <p>Atur identitas usaha dan target keuangan.</p>
+                </div>
+
+            </div>
+
+            <div class="panel settings-panel">
+
+                <div class="form-grid">
+
+                    <label>
+                        Nama Usaha
+                        <input id="businessName" placeholder="Nama rental">
+                    </label>
+
+                    <label>
+                        Target Omzet Bulanan
+                        <input id="targetRevenue" type="number">
+                    </label>
+
+                    <label>
+                        Target Laba Bulanan
+                        <input id="targetProfit" type="number">
+                    </label>
+
+                </div>
+
+                <button class="primary-btn" id="saveSettings">
+                    💾 Simpan Pengaturan
+                </button>
+
+            </div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+                    <h3>Informasi Sistem</h3>
+                </div>
+
+                <div class="info-box">
+                    <p>💾 Data tersimpan otomatis di browser menggunakan LocalStorage.</p>
+                    <p>🔐 Untuk penggunaan nyata, tetap lakukan backup secara berkala.</p>
+                    <p>📱 Kamera QR membutuhkan izin kamera dari browser.</p>
+                    <p>🌤️ Fitur cuaca membutuhkan koneksi internet.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+
+    <div class="modal">
+
+        <button class="modal-close" id="modalClose">×</button>
+
+        <h2 id="modalTitle">Tambah Data</h2>
+
+        <form id="modalForm"></form>
+
+    </div>
+
+</div>
+
+
+<script src="aplikasiowner.js"></script>
+
+</body>
+</html>
